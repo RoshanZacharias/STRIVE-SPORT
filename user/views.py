@@ -911,16 +911,7 @@ def place_order(request, total=0, quantity=0):
         quantity += cart_item.quantity
     tax = (2 * total)/100
 
-    # Check if a coupon is applied
-    # applied_coupon = request.session['coupon_code']
-    # print('********applied_coupon*********', applied_coupon)
-    # if applied_coupon:
-    #     coupon = Coupon.objects.get(coupon_code=applied_coupon)
-    #     print('*********coupon***********',coupon)
-    #     coupon_discount = coupon.discount_amount
-    #     print('**********coupon_discount**********', coupon_discount)
-    
-    # del request.session['coupon_code']
+   
 
     grand_total = total + tax 
     
