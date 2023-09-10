@@ -1376,13 +1376,12 @@ def return_order(request, order_id):
         user_profile = request.user
         wallet, created = Wallet.objects.get_or_create(user=user_profile)
 
-        # Extract the Wallet object from the tuple
-        wallet = wallet if created else wallet[0]
-
-        # Credit the purchased amount back to the wallet
-        wallet.amount += order.order_total
-        wallet.amount = round(wallet.amount, 2)
-        wallet.save()
+        # Check if the Wallet was created or retrieved
+        if created:
+            # Credit the purchased amount back to the wallet
+            wallet.amount += order.order_total
+            wallet.amount = round(wallet.amount, 2)
+            wallet.save()
 
         # Update the order status to 'Returned'
         order.status = 'Returned'
