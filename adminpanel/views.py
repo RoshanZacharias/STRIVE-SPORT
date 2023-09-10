@@ -351,7 +351,7 @@ def user_list(request):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def block_unblock_user(request, user_id):
     user = get_object_or_404(UserProfile, user_id=user_id)
 

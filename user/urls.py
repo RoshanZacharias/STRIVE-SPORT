@@ -22,6 +22,8 @@ urlpatterns = [
     path('verify_otp_reset_password/<str:email>/', views.verify_otp_reset_password, name='verify_otp_reset_password'),
     path('set_new_password/<str:email>/', views.set_new_password, name='set_new_password'),
 
+    
+
 
 
     
