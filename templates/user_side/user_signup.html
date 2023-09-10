@@ -1,4 +1,4 @@
-{% load static %}
+<!-- templates/user/user_signup.html -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,69 +11,61 @@
             background-color: #f8f9fa;
         }
         .container {
-            max-width: 900px; /* Adjust the maximum width as needed */
+            max-width: 500px;
             margin: 100px auto;
             border: 1px solid #ddd;
+            padding: 30px;
             border-radius: 5px;
             background-color: #fff;
-        }
-        .custom-image {
-            height: auto;
-            max-width: 100%;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <img src="{% static 'user_static/images/signup_image5.jpg' %}" alt="Image" class="custom-image">
+        <h1 class="text-center mb-4">User Signup</h1>
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" name="name" class="form-control" required>
             </div>
-            <div class="col-md-6">
-                <h1 class="text-center mb-4">User Signup</h1>
-                <form method="post">
-                    {% csrf_token %}
 
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" name="name" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" name="email" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mobile">Mobile:</label>
-                        <input type="tel" name="mobile" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" name="password" id="password" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="confirm_password">Confirm Password:</label>
-                        <input type="password" name="confirm_password" id="confirm_password" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="ref_code">Referral Code:</label>
-                        <input type="text" id="ref_code" name="ref_code">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
-                </form>
-
-                {% if error %}
-                    <div class="alert alert-danger mt-3">
-                        {{ error }}
-                    </div>
-                {% endif %}
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" class="form-control" required>
             </div>
-        </div>
+
+            <div class="form-group">
+                <label for="mobile">Mobile:</label>
+                <input type="tel" name="mobile" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" name="confirm_password" id="confirm_password" class="form-control" required>
+            </div>
+
+            
+            <div class="form-group">
+                <label for="ref_code">Referral Code:</label>
+                <input type="text" id="ref_code" name="ref_code">
+            </div>
+            
+
+            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+        </form>
+
+        {% if error %}
+            <div class="alert alert-danger mt-3">
+                {{ error }}
+            </div>
+        {% endif %}
     </div>
 
     <!-- Include Bootstrap JS -->
