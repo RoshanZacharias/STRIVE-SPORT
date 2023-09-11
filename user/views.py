@@ -1062,7 +1062,7 @@ def payment(request, order_id):
         'total': total,
         'tax': tax,
         'grand_total': order.order_total,
-        'coupon_discount':coupon_discount
+        'coupon_discount':coupon_discount,
     }
 
 
@@ -1357,10 +1357,34 @@ def pay_with_cash_on_delivery(request, order_id):
     # Clear the cart (adjust this based on your project structure)
     cart_items.delete()
 
+    tax = 0
+    total = 0
+    quantity = 0
+    for cart_item in cart_items:
+        total += (cart_item.product.price * cart_item.quantity)
+        quantity += cart_item.quantity
+    tax = (2 * total)/100
+    grand_total = total + tax
+
+
+    applied_coupon = request.session.get('coupon_code')
+    
+    if applied_coupon:
+        coupon = Coupon.objects.get(coupon_code=applied_coupon)
+        
+        coupon_discount = coupon.discount_amount
+    else:
+        coupon_discount = 0
+
     context = {
         'order': order,
         'order_number': order.order_number,
         'transID': payment.payment_id,
+        'cart_items': cart_items,
+        'total': total,
+        'tax': tax,
+        'grand_total': order.order_total,
+        'coupon_discount':coupon_discount,
         }
 
     # Redirect to the order confirmed page
