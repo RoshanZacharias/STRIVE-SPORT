@@ -17,7 +17,7 @@ class UserProfile(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     name = models.CharField(max_length=255, default='')
-    mobile = models.CharField(max_length=10, default='')
+    mobile = models.CharField(max_length=15, default='')
     is_blocked = models.BooleanField(default=False)
     referral_id = models.CharField(max_length=8, default='', unique=True)
     

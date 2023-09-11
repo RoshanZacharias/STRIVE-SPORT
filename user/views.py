@@ -30,7 +30,7 @@ from django.urls import reverse
 
 def index(request):
     products = Product.objects.filter(is_active=True)
-    paginator = Paginator(products, 4)
+    paginator = Paginator(products, 8)
     page = request.GET.get('page')
     paged_products = paginator.get_page(page)
     category = Category.objects.all()
@@ -47,13 +47,13 @@ def index(request):
     price_range = request.GET.get('price_range')
     print(price_range)
     if price_range:
-        print('*******price_range*******')
+        
         min_price, max_price = map(int, price_range.split('-'))
         products = products.filter(price__gte=min_price, price__lte=max_price)
 
     # Sorting
     sort_by = request.GET.get('sort_by')
-    print('*******sort_by*******',sort_by)
+    
     if sort_by == 'newness':
         products = products.order_by('-created_at')
     elif sort_by == 'price_low_high':
@@ -61,7 +61,7 @@ def index(request):
     elif sort_by == 'price_high_low':
         products = products.order_by('-price')
 
-    paginator = Paginator(products, 4)
+    paginator = Paginator(products, 8)
     page = request.GET.get('page')
     paged_products = paginator.get_page(page)
 
