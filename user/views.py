@@ -1044,13 +1044,15 @@ def payment(request, order_id):
     grand_total = total + tax
 
 
-    applied_coupon = request.session['coupon_code']
-    # print('********applied_coupon*********', applied_coupon)
+    applied_coupon = request.session.get('coupon_code')
+    
     if applied_coupon:
         coupon = Coupon.objects.get(coupon_code=applied_coupon)
-        print('*********coupon***********',coupon)
+        
         coupon_discount = coupon.discount_amount
-        print('**********coupon_discount**********', coupon_discount)
+    else:
+        coupon_discount = 0
+        
 
 
 
