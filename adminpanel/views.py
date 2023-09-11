@@ -23,7 +23,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def admin_dashboard(request):
     return render(request, 'admin_side/index.html')
 
@@ -52,7 +52,7 @@ def admin_login(request):
     
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def product_list(request):
     search_query = request.GET.get('search', '')
 
@@ -71,7 +71,10 @@ def product_list(request):
     # return render(request, 'admin_side/products.html', {'products': products})
 
 
-@login_required(login_url='admin_login')
+
+
+
+@login_required(login_url='adminpanel:admin_login')
 def add_product(request):
     categories = Category.objects.all()
     brands = Brand.objects.all()
@@ -121,7 +124,7 @@ def add_product(request):
     return render(request, 'admin_side/add_product.html', context)
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def edit_product(request, product_id):
     product = get_object_or_404(Product, product_id=product_id)
     categories = Category.objects.all()
@@ -170,7 +173,7 @@ def edit_product(request, product_id):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def delete_product(request, product_id):
     product = get_object_or_404(Product, product_id=product_id)
     if request.method == 'POST':
@@ -180,7 +183,7 @@ def delete_product(request, product_id):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def soft_delete_product(request, product_id):
     try:
         product = Product.objects.get(product_id=product_id)
@@ -193,7 +196,10 @@ def soft_delete_product(request, product_id):
     return redirect('adminpanel:product_list')
 
 
-@login_required(login_url='admin_login')
+
+
+
+@login_required(login_url='adminpanel:admin_login')
 def add_variations(request, product_id):
     product = get_object_or_404(Product, product_id=product_id)
     if request.method == 'POST':
@@ -215,7 +221,10 @@ def add_variations(request, product_id):
 
 
 
-@login_required(login_url='admin_login')
+
+
+
+@login_required(login_url='adminpanel:admin_login')
 def view_variations(request, product_id):
     product = get_object_or_404(Product, product_id=product_id)
     variations = Variation.objects.filter(product=product)
@@ -229,7 +238,7 @@ def view_variations(request, product_id):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def edit_variation(request, product_id, variation_id):
     variation = get_object_or_404(Variation, id=variation_id)
     if request.method == 'POST':
@@ -255,7 +264,7 @@ def edit_variation(request, product_id, variation_id):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def delete_variation(request, product_id, variation_id):
     variation = get_object_or_404(Variation, id=variation_id)
     
@@ -270,7 +279,7 @@ def delete_variation(request, product_id, variation_id):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def category_list(request):
     search_query = request.GET.get('search')
     
@@ -283,7 +292,7 @@ def category_list(request):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def add_category(request):
     
     if request.method == 'POST':
@@ -298,7 +307,7 @@ def add_category(request):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def edit_category(request, category_name):
     category = get_object_or_404(Category, category_name=category_name)
     if request.method == 'POST':
@@ -319,7 +328,7 @@ def edit_category(request, category_name):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def delete_category(request, category_name):
     category = get_object_or_404(Category, category_name=category_name)
     if request.method == 'POST':
@@ -330,7 +339,7 @@ def delete_category(request, category_name):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def user_list(request):
     
     search_query = request.GET.get('search', '')
@@ -368,7 +377,7 @@ def block_unblock_user(request, user_id):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def brand_list(request):
     search_query = request.GET.get('search')
     
@@ -381,7 +390,7 @@ def brand_list(request):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def add_brand(request):
     if request.method == 'POST':
         brand_name = request.POST.get('brand_name')
@@ -395,7 +404,7 @@ def add_brand(request):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def edit_brand(request, brand_name):
     brands = get_object_or_404(Brand, brand_name=brand_name)
     if request.method == 'POST':
@@ -415,7 +424,7 @@ def edit_brand(request, brand_name):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def delete_brand(request, brand_name):
     brands = get_object_or_404(Brand, brand_name=brand_name)
     if request.method == 'POST':
@@ -427,7 +436,7 @@ def delete_brand(request, brand_name):
 
 
 from user.models import Order,OrderProduct
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def order_list(request):
     orders = Order.objects.all().order_by('-created_at')  # Fetch all orders from the Order model
     context = {'orders': orders}
@@ -435,7 +444,7 @@ def order_list(request):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def ordered_product_details(request, order_id):
     order = Order.objects.get(id=order_id)
     ordered_products = OrderProduct.objects.filter(order=order)
@@ -448,7 +457,7 @@ def ordered_product_details(request, order_id):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def update_order_status(request, order_id):
     if request.method == 'POST':
         order = get_object_or_404(Order, id=int(order_id))
@@ -461,7 +470,7 @@ def update_order_status(request, order_id):
     
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def sales_report(request):
     if request.method == 'POST':
         from_date = request.POST.get('fromDate')
@@ -537,7 +546,7 @@ def sales_report(request):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def coupon_list(request):
     coupons = Coupon.objects.all()
     context = {
@@ -547,7 +556,7 @@ def coupon_list(request):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def add_coupon(request):
     if request.method == 'POST':
         coupon_code = request.POST.get('coupon_code')
@@ -573,7 +582,7 @@ def add_coupon(request):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def edit_coupon(request, coupon_id):
     try:
         # Get the coupon instance by its ID
@@ -607,7 +616,7 @@ def edit_coupon(request, coupon_id):
     
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def delete_coupon(request, coupon_id):
     coupon = get_object_or_404(Coupon, id=coupon_id)
 
@@ -618,7 +627,7 @@ def delete_coupon(request, coupon_id):
     return redirect('adminpanel:coupon_list')
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def category_offer(request):
     if request.method == 'POST':
 
@@ -664,7 +673,7 @@ def category_offer(request):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def admin_discount_add(request):
     if request.method == 'POST':
         discount = request.POST.get('discount')
@@ -694,7 +703,7 @@ def admin_discount_add(request):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def edit_offer(request, offer_id):
     offer = get_object_or_404(Offer, id=offer_id)
 
@@ -716,7 +725,7 @@ def edit_offer(request, offer_id):
 
 
 
-@login_required(login_url='admin_login')
+@login_required(login_url='adminpanel:admin_login')
 def delete_offer(request, offer_id):
     offer = get_object_or_404(Offer, id=offer_id)
 
