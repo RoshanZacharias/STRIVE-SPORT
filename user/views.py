@@ -918,8 +918,11 @@ def place_order(request, total=0, quantity=0):
 
     if request.method == 'POST':
         
-        
-        address = ShippingAddress.objects.get(user=request.user,is_default=True)
+        try:
+            address = ShippingAddress.objects.get(user=request.user,is_default=True)
+        except:
+            messages.warning(request, 'No delivery address exixts! Add a address and try again')
+            return redirect('checkout')
         
         
         data = Order()
@@ -1365,14 +1368,17 @@ def pay_with_cash_on_delivery(request, order_id):
         quantity += cart_item.quantity
     tax = (2 * total)/100
     grand_total = total + tax
+    print('******grand total*****', grand_total)
 
 
     applied_coupon = request.session.get('coupon_code')
     
     if applied_coupon:
         coupon = Coupon.objects.get(coupon_code=applied_coupon)
+        print('******coupon*******', coupon)
         
         coupon_discount = coupon.discount_amount
+        print('*****coupon_discount*****', coupon_discount, coupon.discount_amount)
     else:
         coupon_discount = 0
 
@@ -1383,7 +1389,7 @@ def pay_with_cash_on_delivery(request, order_id):
         'cart_items': cart_items,
         'total': total,
         'tax': tax,
-        'grand_total': order.order_total,
+        'grand_total': grand_total,
         'coupon_discount':coupon_discount,
         }
 
